@@ -1,9 +1,12 @@
 import React, {useState} from "react";
 
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ImageBackground, Pressable } from "react-native";
 import {BlurView} from "expo-blur";
 import NinjaCard from "../SubComponents/NinjaCard";
 export default function ShoppingCart({style, cart = [], totalStars = 0, ninja}) {
+
+
+  const [isHovered, setIsHovered] = useState(false);
 
   async function updateStars() {
   if (!ninja || !ninja.id) {
@@ -68,13 +71,13 @@ export default function ShoppingCart({style, cart = [], totalStars = 0, ninja}) 
   );
 })}
       </ScrollView>
-      <BlurView style={{position: "absolute", bottom: 15, left: 20, backgroundColor: "rgba(255, 255, 255, 0.41)", padding: 10, borderRadius: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.5, shadowRadius: 10}}>
+      <BlurView tint="dark" style={{ position: "absolute", bottom: 15, left: 20, padding: 10, borderRadius: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.5, shadowRadius: 10}}>
       <Text style={styles.text}>Total Stars: {totalStars}</Text>
       </BlurView>
       <View style = {styles.submitButtonContainer}>
-        <TouchableOpacity style={{justifyContent: "center", alignItems: "center", width: "100%", height: "100%"}} onPress={updateStars}>
+        <Pressable onHoverIn={() => setIsHovered(true)} onHoverOut={() => setIsHovered(false)} style={{justifyContent: "center", alignItems: "center", width: "100%", height: "100%", backgroundColor: isHovered ? "rgba(32, 31, 31, 0.65)" : "rgba(32, 31, 31, 0.3)", borderRadius: 10}} onPress={updateStars}>
           <Text style={{fontSize: 24, fontWeight: "bold", color: "#fff", textShadowColor: "rgba(0, 0, 0, 0.75)", textShadowOffset: { width: 0, height: 2 }, textShadowRadius: 4}}>Submit</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </BlurView>
   );
@@ -106,13 +109,13 @@ const styles = StyleSheet.create({
     textShadowColor: "rgba(0, 0, 0, 0.75)",
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
+    backgroundClor: "rgba(39, 37, 37, 0.8)",
 
   },
   submitButtonContainer: {
     position: "absolute",
     bottom: 15,
     right: 20,
-    padding: 30,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.41)",
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
     padding: 10,
     borderRadius: 10,
      width: "80%",

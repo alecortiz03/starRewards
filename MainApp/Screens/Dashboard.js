@@ -49,9 +49,8 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
   Searchbar: {
       top: 20,
-      right: "33%",
       zIndex: 10,
-      width: "100%",
+      left: "2%"
   },
   ProjectItems: {
     top: "5%",

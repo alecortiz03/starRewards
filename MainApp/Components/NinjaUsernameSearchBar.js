@@ -46,7 +46,7 @@ export default function NinjaUsernameSearchBar({ style, onNinjaPick }) {
             handleNinjaPick(item); // pass the whole item to the handler
             }}
         >
-          <Text >{item.username}</Text>
+          <Text style={{color: "#fff", fontWeight: "bold"}}>{item.username}</Text>
         </Pressable>
       ))}
     </View>
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: "center",
     alignItems: "center",
+    width: 600,
   },
   textInput: {
     height: 40,
@@ -66,14 +67,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    width: "30%",
+    width: "100%",
   },
   suggestionsContainer: {
   position: "absolute",
-  marginTop: 80,
-  width: "25%",
+  width: 300,
   borderRadius: 20,
   zIndex: 10, // ensure it appears above other elements
+  alignItems: "flex-start",
+  top: 45,
   
 },
 suggestionItem: {
@@ -84,11 +86,12 @@ suggestionItem: {
   borderRadius: 20,
   zIndex: 10,
   marginBottom: 5,
-  top: 30,
   shadowColor: "#000",
   shadowOffset: { width: 0, height: 5 },
   shadowOpacity: 0.5,
   shadowRadius: 10,
-  left: "1.5%"
+  width: "100%",
+  justifyContent: "flex-start",
+  right: "50%",
 },
 });

@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Pressable } from 'react-native';
 
 export default function AddNinjaButton({ onPress, style }) {
     const translateY = useRef(new Animated.Value(0)).current;
-
+    const [isHovered, setIsHovered] = useState(false);
      const animateTo = (toValue) => {
         Animated.spring(translateY, {
           toValue,
@@ -16,11 +16,11 @@ export default function AddNinjaButton({ onPress, style }) {
 
   <Pressable
     onPress={onPress}
-    onHoverIn={() => animateTo(-8)}
-    onHoverOut={() => animateTo(0)}
+    onHoverIn={() => { animateTo(-8); setIsHovered(true); }}
+    onHoverOut={() => { animateTo(0); setIsHovered(false); }}
     onPressIn={() => animateTo(-8)}
     onPressOut={() => animateTo(0)}
-    style={style} // match your button size
+    style={[style, { width: 150, height: 65, justifyContent: "center", alignItems: "center", }]} // match your button size
   >
             <Animated.View style={[styles.animatedButton, { transform: [{ translateY }] }]}>
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     animatedButton: {
   width: 150,
   height: 65,
-  backgroundColor: '#007AFF',
+
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: 40,
