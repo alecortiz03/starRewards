@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Q
 from .models import Ninjas
 from .serializers import NinjasSerializer
 
@@ -27,7 +28,11 @@ class NinjaUsernameSearchView(APIView):
         if not query:
             return Response([])
 
-        ninjas = Ninjas.objects.filter(username__icontains=query)[:10]
+        ninjas = Ninjas.objects.filter(
+            Q(username__icontains=query) |
+            Q(firstName__icontains=query) |
+            Q(lastName__icontains=query)
+        )[:10]
         serializer = NinjasSerializer(ninjas, many=True)
         return Response(serializer.data)
 class NinjaStars(APIView):
