@@ -7,8 +7,11 @@ import { FlatList, Text, useWindowDimensions } from 'react-native';
 import ProjectButton from '../SubComponents/ProjectButton';
 // ------ Global Constants ------
 
-export default function ItemDashboard({style}) {
+export default function ItemDashboard({style, items, stars, user, setStars, setItems}) {
   const { height, width } = useWindowDimensions();
+  const handlePress = (item) => {
+    console.log(`Pressed ${item}`);
+  };
   const projects = {
     "Build": 2,
     "Solve": 1,
@@ -22,7 +25,7 @@ export default function ItemDashboard({style}) {
     <BlurView intensity={60} style={[styles.BlurContainer, { height: height * 0.75, width: width * 0.8}, style]}>
         <FlatList
             data={Object.keys(projects)}
-            renderItem={({ item }) => <ProjectButton text={item} />}
+            renderItem={({ item }) => <ProjectButton text={item} items={items} stars={stars} user={user} setStars={setStars} setItems={setItems} />}
             keyExtractor={(item) => item}
             numColumns={3}
             columnWrapperStyle={{ gap: width * 0.003 }}

@@ -5,14 +5,16 @@ import { View, Text, useWindowDimensions, Pressable, Animated, Modal } from 'rea
 import Ionicons from '@expo/vector-icons/Ionicons';
 // ------ Local Imports ------
 import UserInfoCard from '../SubComponents/UserInfoCard';
+import ShoppingCart from '../SubComponents/ShoppingCart';
 // ------ Global Constants ------
 
-export default function UserCard({style, user, onDeleteUser}) {
+export default function UserCard({style, user, onDeleteUser, items, stars, setStars, setItems, setSelectedUser}) {
     const { height, width } = useWindowDimensions();
     const trashScale = useRef(new Animated.Value(1)).current;
     const infoScale = useRef(new Animated.Value(1)).current;
     const shoppingCartScale = useRef(new Animated.Value(1)).current;
     const [infoVisible, setInfoVisible] = useState(false);
+    const [shoppingCartVisible, setShoppingCartVisible] = useState(false);
     const handleTrashHoverIn = () => {
     Animated.spring(trashScale, {
                 toValue: 0.95,
@@ -85,10 +87,15 @@ export default function UserCard({style, user, onDeleteUser}) {
                 <Pressable style={[styles.shoppingCartIcon, {right: width * 0.16, bottom: height * 0.000000000001, zIndex: 10}]}
                 onHoverIn={handleShoppingCartHoverIn}
                 onHoverOut={handleShoppingCartHoverOut}
+                onPress={() => {setShoppingCartVisible(true)}}
                 >
                     <Ionicons name="cart" size={width * 0.017} color="rgba(0, 0, 0, 0.8)" style={{padding: width * 0.005}}/>
+                    {items.length > 0 && (
+                        <Text style = {[styles.itemsText, {fontSize: width * 0.02, right: width * 0.02, bottom: height * 0.025}]}>{items.length}</Text>
+                    )}
                 </Pressable>
             </Animated.View>
+            <ShoppingCart isVissible={shoppingCartVisible} onClose={() => setShoppingCartVisible(false)} style={{width: width, height: height}} items={items} user={user} stars={stars} setItems={setItems} setStars={setStars} setSelectedUser={setSelectedUser} />
             </>
         )}
     </BlurView>
@@ -126,6 +133,18 @@ const styles = {
         borderRadius: 60,
     },
     starText: {
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 4,
+    },
+    itemsText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
         color: 'black',
         fontSize: 16,
         fontWeight: 'bold',
