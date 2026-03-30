@@ -19,7 +19,7 @@ export default function UserInfoCard({style, user, isVissible, setInfoVisible}) 
 return (
 <Modal style={style} visible={isVissible} transparent animationType="fade" onRequestClose={() => setInfoVisible(false)}>
                 <BlurView tint="dark" intensity={60} style={styles.InfoModalContainer}>
-                    <View>
+                    <View style = {styles.fieldRow}>
                         <TextInput style = {[styles.firstNameInput, {backgroundColor: editFirstName ? 'white' : 'rgba(255, 255, 255, 0.5)'}]} 
                         placeholder={user.firstName} 
                         value={firstName}
@@ -35,11 +35,11 @@ return (
                                 }
                             }
                             setEditFirstName(!editFirstName);
-                        }} style={[styles.firstNameEditButton, {backgroundColor: editFirstName ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, left: width * 0.103, bottom: height * 0.035}]}>
-                            <Text style = {styles.firstNameEditButtonText}>{editFirstName ? 'SAVE' : 'EDIT'}</Text>
+                        }} style={[styles.EditButton, {backgroundColor: editFirstName ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, padding: width * 0.005}]}>
+                            <Text style = {[styles.firstNameEditButtonText, {fontSize: width * 0.008}]}>{editFirstName ? 'SAVE' : 'EDIT'}</Text>
                         </Pressable>
                     </View>
-                    <View>
+                    <View style = {styles.fieldRow}>
                         <TextInput style = {[styles.lastNameInput, {backgroundColor: editLastName ? 'white' : 'rgba(255, 255, 255, 0.5)'}]} 
                         placeholder={user.lastName} 
                         value={lastName}
@@ -54,11 +54,11 @@ return (
                                 }
                             }
                             setEditLastName(!editLastName);
-                        }} style={[styles.lastNameEditButton, {backgroundColor: editLastName ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, left: width * 0.103, bottom: height * 0.035}]}>
-                            <Text style = {styles.lastNameEditButtonText}>{editLastName ? 'SAVE' : 'EDIT'}</Text>
+                        }} style={[styles.EditButton, {backgroundColor: editLastName ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, padding: width * 0.005}]} >
+                            <Text style = {[styles.lastNameEditButtonText, {fontSize: width * 0.008}]}>{editLastName ? 'SAVE' : 'EDIT'}</Text>
                         </Pressable>
                     </View>
-                    <View>
+                    <View style = {styles.fieldRow}>
                         <TextInput style = {[styles.userNameInput, {backgroundColor: editUserName ? 'white' : 'rgba(255, 255, 255, 0.5)'}]} 
                         placeholder={user.username} 
                         value={username}
@@ -76,12 +76,12 @@ return (
                             setEditUserName(!editUserName);
 
                         }} 
-                        style={[styles.userNameEditButton, {backgroundColor: editUserName ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, left: width * 0.103, bottom: height * 0.035}]}
+                        style={[styles.EditButton, {backgroundColor: editUserName ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, padding: width * 0.005}]} 
                         >
-                            <Text style = {styles.userNameEditButtonText}>{editUserName ? 'SAVE' : 'EDIT'}</Text>
+                            <Text style = {[styles.userNameEditButtonText, {fontSize: width * 0.008}]}>{editUserName ? 'SAVE' : 'EDIT'}</Text>
                         </Pressable>
                     </View>
-                    <View>
+                    <View style = {styles.fieldRow}>
                         <TextInput style = {[styles.ninjaTagInput, {backgroundColor: editNinjaTag ? 'white' : 'rgba(255, 255, 255, 0.5)'}]} 
                         placeholder={user.ninjaTag} 
                         value={ninjaTag}
@@ -96,8 +96,8 @@ return (
                                 }
                             }
                             setEditNinjaTag(!editNinjaTag);
-                        }} style={[styles.ninjaTagEditButton, {backgroundColor: editNinjaTag ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, left: width * 0.103, bottom: height * 0.035}]}>
-                            <Text style = {styles.ninjaTagEditButtonText}>{editNinjaTag ? 'SAVE' : 'EDIT'}</Text>
+                        }} style={[styles.EditButton, {backgroundColor: editNinjaTag ? 'rgba(243, 101, 85, 0.75)' : 'rgba(85, 243, 124, 0.75)', width: width * 0.025, padding: width * 0.005}]} >
+                            <Text style = {[styles.ninjaTagEditButtonText, {fontSize: width * 0.008}]}>{editNinjaTag ? 'SAVE' : 'EDIT'}</Text>
                         </Pressable>
                     </View>
                     <Pressable onPress={() => setInfoVisible(false)} style={styles.infoCloseButton}>
@@ -108,6 +108,20 @@ return (
 )};
 
 const styles = {
+    fieldRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 12,
+  },
+  EditButton: {
+  width: 80,          // 🔥 fixed width (stable)
+  height: 40,
+  borderRadius: 10,
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingHorizontal: 20, // spacing INSIDE stays same
+    },
       InfoModalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -130,7 +144,6 @@ const styles = {
     firstNameEditButton: {
         alignItems: 'center',
         borderRadius: 10,
-        padding: 10,
     },
     firstNameEditButtonText: {
         color: 'white',
