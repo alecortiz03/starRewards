@@ -25,6 +25,8 @@ export default function Dashboard() {
 
 const styles = {
   mainContainer: {
+    height: '100%',
+    width: '100%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

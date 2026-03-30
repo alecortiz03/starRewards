@@ -1,9 +1,10 @@
 // ------ Base Imports ------
 import React, {useState, useRef} from 'react';
 import { BlurView } from 'expo-blur';
-import { View, Text, useWindowDimensions, Pressable, Animated } from 'react-native';
+import { View, Text, useWindowDimensions, Pressable, Animated, Modal } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 // ------ Local Imports ------
+import UserInfoCard from '../SubComponents/UserInfoCard';
 // ------ Global Constants ------
 
 export default function UserCard({style, user, onDeleteUser}) {
@@ -11,6 +12,7 @@ export default function UserCard({style, user, onDeleteUser}) {
     const trashScale = useRef(new Animated.Value(1)).current;
     const infoScale = useRef(new Animated.Value(1)).current;
     const shoppingCartScale = useRef(new Animated.Value(1)).current;
+    const [infoVisible, setInfoVisible] = useState(false);
     const handleTrashHoverIn = () => {
     Animated.spring(trashScale, {
                 toValue: 0.95,
@@ -72,10 +74,12 @@ export default function UserCard({style, user, onDeleteUser}) {
                 <Pressable style={[styles.starsIcon, {right: width * 0.15}]}
                 onHoverIn={handleInfoHoverIn}
                 onHoverOut={handleInfoHoverOut}
+                onPress={() => setInfoVisible(true)}
                 >
                     <Ionicons name="information-circle" size={width * 0.017} color="rgba(0, 0, 0, 0.8)" />
                 </Pressable>
             </Animated.View>
+            <UserInfoCard isVissible={infoVisible} setInfoVisible={setInfoVisible} style={{width: width, height: height}} user={user}/>
             <Animated.View style={[{ transform: [{ scale: shoppingCartScale }] }, {zIndex: 10, bottom: height * 0.035, left: width * 0.075}]}>
                 <Pressable style={[styles.shoppingCartIcon, {right: width * 0.16, bottom: height * 0.000000000001, zIndex: 10}]}
                 onHoverIn={handleShoppingCartHoverIn}
@@ -119,5 +123,6 @@ const styles = {
         position: 'absolute',
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         borderRadius: 60,
-    }
+    },
+  
 }
