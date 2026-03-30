@@ -50,3 +50,77 @@ class NinjaStars(APIView):
             return Response(serializer.data)
 
         return Response({"error": "Stars value is required."}, status=status.HTTP_400_BAD_REQUEST)
+   
+class NinjaUpdateFirstName(APIView):
+    def patch(self, request, pk):
+        try:
+            ninja = Ninjas.objects.get(pk=pk)
+        except Ninjas.DoesNotExist:
+            return Response(
+                {"error": "Ninja not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        first_name = request.data.get("firstName")
+
+        if first_name is None:
+            return Response(
+                {"error": "firstName is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        ninja.firstName = first_name
+        ninja.save()
+
+        serializer = NinjasSerializer(ninja)
+        return Response(serializer.data)
+
+
+class NinjaUpdateLastName(APIView):
+    def patch(self, request, pk):
+        try:
+            ninja = Ninjas.objects.get(pk=pk)
+        except Ninjas.DoesNotExist:
+            return Response(
+                {"error": "Ninja not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        last_name = request.data.get("lastName")
+
+        if last_name is None:
+            return Response(
+                {"error": "lastName is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        ninja.lastName = last_name
+        ninja.save()
+
+        serializer = NinjasSerializer(ninja)
+        return Response(serializer.data)
+
+
+class NinjaUpdateUsername(APIView):
+    def patch(self, request, pk):
+        try:
+            ninja = Ninjas.objects.get(pk=pk)
+        except Ninjas.DoesNotExist:
+            return Response(
+                {"error": "Ninja not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        username = request.data.get("username")
+
+        if username is None:
+            return Response(
+                {"error": "username is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        ninja.username = username
+        ninja.save()
+
+        serializer = NinjasSerializer(ninja)
+        return Response(serializer.data)
