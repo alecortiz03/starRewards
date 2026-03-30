@@ -57,6 +57,7 @@ export default function UserCard({style, user, onDeleteUser}) {
   return (
     <BlurView intensity={60} style={[styles.BlurContainer, style, { height: height * 0.1, width: width * 0.2 }]}>
         <Text style={[styles.Name, { fontSize: width * 0.015 }]}>{user ? `${user.firstName} ${user.lastName}` : 'No User Selected'}</Text>
+        <Text style={styles.starText}>{user ? `STARS: ${user.stars}` : ''}</Text>
         {user && (
             <>
             <Animated.View style={[{ transform: [{ scale: trashScale }] }, {zIndex: 10, bottom: height * 0.035, left: width * 0.075}]}>
@@ -124,5 +125,13 @@ const styles = {
         backgroundColor: 'rgba(255, 255, 255, 0.8)',
         borderRadius: 60,
     },
-  
+    starText: {
+        color: 'black',
+        fontSize: 16,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 4,
+    },
 }
